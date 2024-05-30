@@ -132,4 +132,21 @@ img {
     margin-right: auto;
 }
 
+/*filter*/
+.rating-filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.rating-filter .star {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.rating-filter .star:hover,
+.rating-filter .star.active {
+    color: #4CAF50;
+}
 
