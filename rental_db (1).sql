@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 02 Jun 2024 pada 09.28
+-- Waktu pembuatan: 05 Jun 2024 pada 03.43
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.1.17
 
@@ -24,14 +24,14 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `Reviews`
+-- Struktur dari tabel `reviews`
 --
 
-CREATE TABLE `Reviews` (
+CREATE TABLE `reviews` (
   `review_id` int(11) NOT NULL,
-  `item_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `rating` int(11) DEFAULT NULL CHECK (`rating` >= 1 and `rating` <= 5),
+  `item_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `rating` decimal(2,1) NOT NULL,
   `comment` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -185,14 +185,14 @@ INSERT INTO `tb_subcategories` (`subcategory_id`, `category_id`, `subcategory_na
 
 CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL,
-  `nama` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `telp` varchar(20) DEFAULT NULL,
-  `ktp` varchar(255) NOT NULL,
-  `kk` varchar(255) NOT NULL,
-  `RegDate` timestamp NULL DEFAULT current_timestamp(),
-  `UpdateDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `telp` varchar(15) DEFAULT NULL,
+  `ktp` varchar(255) DEFAULT NULL,
+  `kk` varchar(255) DEFAULT NULL,
+  `RegDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `UpdateDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -200,9 +200,9 @@ CREATE TABLE `tb_user` (
 --
 
 --
--- Indeks untuk tabel `Reviews`
+-- Indeks untuk tabel `reviews`
 --
-ALTER TABLE `Reviews`
+ALTER TABLE `reviews`
   ADD PRIMARY KEY (`review_id`),
   ADD KEY `item_id` (`item_id`),
   ADD KEY `user_id` (`user_id`);
@@ -252,16 +252,17 @@ ALTER TABLE `tb_subcategories`
 -- Indeks untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT untuk tabel `Reviews`
+-- AUTO_INCREMENT untuk tabel `reviews`
 --
-ALTER TABLE `Reviews`
+ALTER TABLE `reviews`
   MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -301,13 +302,19 @@ ALTER TABLE `tb_subcategories`
   MODIFY `subcategory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT untuk tabel `tb_user`
+--
+ALTER TABLE `tb_user`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Ketidakleluasaan untuk tabel `Reviews`
+-- Ketidakleluasaan untuk tabel `reviews`
 --
-ALTER TABLE `Reviews`
+ALTER TABLE `reviews`
   ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `tb_items` (`item_id`),
   ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `tb_user` (`id_user`);
 
