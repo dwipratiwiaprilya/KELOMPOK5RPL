@@ -17,15 +17,11 @@
     }
     .card img {
       border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
+      border-top-right-radius: 10px;
       max-width: 100%;
       height: auto;
     }
     .card-body {
-      display: flex;
-      align-items: center;
-    }
-    .card-content {
       padding: 15px;
     }
     .rent-price {
@@ -43,10 +39,6 @@
       border-radius: 50px;
       padding: 10px 20px;
     }
-    .rating {
-      display: flex;
-      align-items: center;
-    }
     .rating .fa-star,
     .rating .fa-star-half-alt {
       color: #ffc107;
@@ -62,7 +54,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img src="/Applications/XAMPP/xamppfiles/htdocs/KELOMPOK5RPL/KELOMPOK5RPL/assets/images/logo biru hitam.png" alt="Logo" width="120" height="100" class="d-inline-block align-text-top">
+        <img src="path_to_logo/logo.png" alt="Logo" width="120" height="100" class="d-inline-block align-text-top">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -110,117 +102,145 @@
       </div>
     </div>
   </nav>
+  <?php
+	$connect=mysqli_connect("localhost","root","","rental_db");
+	?>
+  
   <!--KATEGORI KAMERA-->
   <h2 style="text-align: center; margin-top: 20px; margin-bottom: 10px;">Kamera</h2>
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-6 col-lg-4">
         <div class="card">
-          <img src="assets/images/Canon 70D.png"card-img-top" alt="Canon 80D">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=1";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
           <div class="card-body">
-            <div class="card-content">
-              <h5 class="card-title">Canon 80D</h5>
-              <p class="rent-price">Rp 175.000 / Hari</p>
-              <div class="rating">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span>4.5/5</span>
+              <span><?php echo $data['rating']; ?>/5</span>
               </div>
-              <a href="#" class="btn btn-primary">Selengkapnya</a>
-            </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
           </div>
         </div>
       </div>
+      <?php
+      }
+      ?>
       <div class="col-md-6 col-lg-4">
         <div class="card">
-          <img src="assets/images/Canon EOS RP.png" class="card-img-top" alt="Canon 70D">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=2";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
           <div class="card-body">
-            <div class="card-content">
-              <h5 class="card-title">Canon EOS RP</h5>
-              <p class="rent-price">Rp 450.000 / Hari</p>
-              <div class="rating">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span>4.5/5</span>
+              <span><?php echo $data['rating']; ?>/5</span>
               </div>
-              <a href="#" class="btn btn-primary">Selengkapnya</a>
-            </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
           </div>
         </div>
       </div>
+      <?php
+      }
+      ?>
       <div class="col-md-6 col-lg-4">
         <div class="card">
-          <img src="assets/images/Fujifilm X-E4.png" class="card-img-top" alt="Canon EOS RP">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=3";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
           <div class="card-body">
-            <div class="card-content">
-              <h5 class="card-title">Fujifilm X-E4</h5>
-              <p class="rent-price">Rp 250.000 / Hari</p>
-              <div class="rating">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
-                <span>4.0/5</span>
+              <span><?php echo $data['rating']; ?>/5</span>
               </div>
-              <a href="#" class="btn btn-primary">Selengkapnya</a>
-            </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
           </div>
         </div>
       </div>
+      <?php
+      }
+      ?>
       <div class="col-md-6 col-lg-4">
         <div class="card">
-          <img src="assets/images/Nikon D5600.png" class="card-img-top" alt="Nikon D5600">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=4";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
           <div class="card-body">
-            <div class="card-content">
-              <h5 class="card-title">Nikon D5600</h5>
-              <p class="rent-price">Rp 125.000 / Hari</p>
-              <div class="rating">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span>3.5/5</span>
+                <i class="fas fa-star"></i>
+              <span><?php echo $data['rating']; ?>/5</span>
               </div>
-              <a href="#" class="btn btn-primary">Selengkapnya</a>
-            </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
           </div>
         </div>
       </div>
-    </div>
+      <?php
+      }
+      ?>
   </div>
 
-  <!--KATEGORI KAMERA-->
+  <!--KATEGORI handphone-->
   <h2 style="text-align: center; margin-top: 20px; margin-bottom: 10px;">Handphone</h2>
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-6 col-lg-4">
         <div class="card">
-          <img src="assets/images/ip 14 promax.png"card-img-top" alt="Iphone 14 Pro Max">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=5";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
           <div class="card-body">
-            <div class="card-content">
-              <h5 class="card-title">Iphone 14 Pro Max</h5>
-              <p class="rent-price">Rp 300.000 / Hari</p>
-              <div class="rating">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span>4.5/5</span>
+              <span><?php echo $data['rating']; ?>/5</span>
               </div>
-              <a href="#" class="btn btn-primary">Selengkapnya</a>
-            </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+      <?php
+      }
+      ?>
 
   <!--KATEGORI GADGET-->
   <h2 style="text-align: center; margin-top: 20px; margin-bottom: 10px;">Gadget</h2>
@@ -228,26 +248,29 @@
     <div class="row">
       <div class="col-md-6 col-lg-4">
         <div class="card">
-          <img src="assets/images/playstation 5.jpeg"card-img-top" alt="Playstation 5">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=6";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
           <div class="card-body">
-            <div class="card-content">
-              <h5 class="card-title">Playstation 5</h5>
-              <p class="rent-price">Rp 175.000 / Hari</p>
-              <div class="rating">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span>4.5/5</span>
+              <span><?php echo $data['rating']; ?>/5</span>
               </div>
-              <a href="item1.html" class="btn btn-primary">Selengkapnya</a>
-            </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+      <?php
+      }
+      ?>
 
   <!--KATEGORI DRONE-->
   <h2 style="text-align: center; margin-top: 20px; margin-bottom: 10px;">Drone</h2>
@@ -255,27 +278,32 @@
     <div class="row">
       <div class="col-md-6 col-lg-4">
         <div class="card">
-          <img src="assets/images/DRONE DJI MINI 2.jpeg"card-img-top" alt="Drone DJI Mini 2">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=7";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
           <div class="card-body">
-            <div class="card-content">
-              <h5 class="card-title">Drone DJI Mini 2</h5>
-              <p class="rent-price">Rp 750.000 / Hari</p>
-              <div class="rating">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
-                <span>4./5</span>
+              <span><?php echo $data['rating']; ?>/5</span>
               </div>
-              <a href="#" class="btn btn-primary">Selengkapnya</a>
-            </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+      <?php
+      }
+      ?>
   
-
+  
+  
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
