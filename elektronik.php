@@ -1,3 +1,9 @@
+<?php
+// elektroinik.php
+include 'config.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,9 +108,6 @@
       </div>
     </div>
   </nav>
-  <?php
-	$connect=mysqli_connect("localhost","root","","rental_db");
-	?>
   
   <!--KATEGORI KAMERA-->
   <h2 style="text-align: center; margin-top: 20px; margin-bottom: 10px;">Kamera</h2>
@@ -264,7 +267,7 @@
                 <i class="fas fa-star"></i>
               <span><?php echo $data['rating']; ?>/5</span>
               </div>
-            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
+            <a href="playstation.php" class="btn btn-primary">Sewa Sekarang</a>
           </div>
         </div>
       </div>
