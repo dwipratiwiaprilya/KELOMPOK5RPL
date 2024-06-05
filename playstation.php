@@ -1,3 +1,7 @@
+<?php
+// elektroinik.php
+include 'config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,27 +126,53 @@
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="detail-product" role="tabpanel" aria-labelledby="detail-product-tab">
           <!-- Product details here -->
-          <p>Deskripsi lengkap produk akan ditampilkan di sini.</p>
+          <br>
+          <?php
+      $sql ="SELECT * From tb_items where item_id=11";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <p><?php echo $data['details']; ?></p>
         </div>
         <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+          <?php } ?>
           <!-- Reviews here -->
+          <br>
           <div class="mt-3">
             <h5>Semua Ulasan</h5>
             <div class="card mb-3">
               <div class="card-body">
-                <h5 class="card-title">Samantha D.</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet. Est officia quas vel enim quidem in reprehenderit accusantium ea esse impedit et impedit similique ut odit exercitationem. Id possimus omnis ut quibusdam reprehenderit ut amet incidunt qui expedita eligendi.</p>
-                <p class="card-text"><small class="text-muted">Posted on August 14, 2023</small></p>
+              <?php
+$sql = "SELECT * FROM reviews r
+        JOIN tb_user u ON user_id = user_id
+        WHERE r.review_id = 3";
+$hasil = mysqli_query($connect, $sql);
+
+if ($data = mysqli_fetch_assoc($hasil)) {
+?>
+                <h5 class="card-title"><?php echo $data['nama']; ?></h5>
+                <p class="card-text"><?php echo $data['comment']; ?></p>
+                <p class="card-text"><small class="text-muted"><?php echo $data['created_at']; ?></small></p>
               </div>
+              <?php } ?>
             </div>
+            <?php
+$sql = "SELECT * FROM reviews r
+        JOIN tb_user u ON user_id = user_id
+        WHERE r.review_id = 4";
+$hasil = mysqli_query($connect, $sql);
+
+if ($data = mysqli_fetch_assoc($hasil)) {
+?>
             <div class="card mb-3">
               <div class="card-body">
-                <h5 class="card-title">Alex M.</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet. Est officia quas vel enim quidem in reprehenderit accusantium ea esse impedit et impedit similique ut odit exercitationem. Id possimus omnis ut quibusdam reprehenderit ut amet incidunt qui expedita eligendi.</p>
-                <p class="card-text"><small class="text-muted">Posted on August 15, 2023</small></p>
+                <h5 class="card-title"><?php echo $data['nama']; ?></h5>
+                <p class="card-text"><?php echo $data['comment']; ?></p>
+                <p class="card-text"><small class="text-muted"><?php echo $data['created_at']; ?></small></p>
               </div>
             </div>
           </div>
+          <?php } ?>
         </div>
         <div class="tab-pane fade" id="terms" role="tabpanel" aria-labelledby="terms-tab">
           <!-- Terms and conditions here -->
