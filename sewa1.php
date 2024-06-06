@@ -1,3 +1,22 @@
+<?php
+// Include file konfigurasi atau file yang diperlukan
+include 'config.php';
+
+// Ambil data dari halaman sebelumnya jika tersedia
+$start_date = $_POST['rental_start_date'] ?? date('Y-m-d');
+$end_date = $_POST['rental_end_date'] ?? date('Y-m-d', strtotime('+1 day'));
+$quantity = $_POST['jumlah'] ?? 1;
+
+// Hitung total durasi dalam hari
+$diff = strtotime($end_date) - strtotime($start_date);
+$total_days = round($diff / (60 * 60 * 24));
+
+// Hitung total biaya sewa
+$rental_rate = 175000; // Tarif sewa per hari
+$total_cost = $rental_rate * $total_days * $quantity;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,51 +91,57 @@
   </nav>
 
   <!-- HERO -->
+  <?php
+      $sql ="SELECT * From tb_items where item_id=6";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
   <div class="container mt-5">
-    <h1 class="text-center">Pesanan Tersedia</h1>
+  <h1 class="text-center">Pesanan Tersedia</h1>
     <div class="row mt-4">
       <div class="col-md-4 text-center">
-        <img src="assets/images/ps5.jpg" alt="Playstation 5" class="img-fluid">
+        <img src="assets/images/<?php echo $data['gambar']; ?>" alt="Playstation 5" class="img-fluid">
       </div>
       <div class="col-md-8">
-        <h2>Playstation 5</h2>
-        <p>Rp. 175.000 / Hari</p>
-        <p><span class="text-warning">★ ★ ★ ★ ★</span> 4.5/5</p>
-        <form>
+        <h2><?php echo $data['name']; ?></h2>
+        <p><?php echo $data['price']; ?></p>
+        <p><span class="text-warning">★ ★ ★ ★ </span> <?php echo $data['rating']; ?></p>
+        <form action="proses_sewa.php" method="post">
           <div class="mb-3">
             <label for="startDate" class="form-label">Tanggal Mulai:</label>
-            <input type="date" class="form-control" id="startDate">
+            <input type="date" class="form-control" id="startDate" name="rental_start_date" value="<?php echo htmlspecialchars($start_date); ?>" readonly>
           </div>
           <div class="mb-3">
             <label for="endDate" class="form-label">Tanggal Selesai:</label>
-            <input type="date" class="form-control" id="endDate">
+            <input type="date" class="form-control" id="endDate" name="rental_end_date" value="<?php echo htmlspecialchars($end_date); ?>" readonly>
           </div>
           <div class="mb-3">
             <label for="totalDuration" class="form-label">Total Durasi:</label>
-            <input type="text" class="form-control" id="totalDuration" placeholder="" >
+            <input type="text" class="form-control" id="totalDuration " id="totalDuration" value="<?php echo htmlspecialchars($total_days); ?> Hari" readonly>
           </div>
           <div class="mb-3">
             <label for="quantity" class="form-label">Jumlah Barang:</label>
-            <input type="number" class="form-control" id="quantity" min="1" placeholder="1">
+            <input type="number" class="form-control" id="quantity" name="jumlah" min="1" value="<?php echo htmlspecialchars($quantity); ?>" readonly>
           </div>
           <div class="mb-3">
             <label for="totalCost" class="form-label">Total Biaya Sewa:</label>
-            <input type="text" class="form-control" id="totalCost" readonly>
+            <input type="text" class="form-control" id="totalCost" value="Rp. <?php echo number_format($total_cost, 0, ',', '.'); ?>" readonly>
           </div>
           <div class="mb-3">
-            <label for="paymentMethod" class="form-label">Metode Pembayaran:</label>
-            <select class="form-select" id="paymentMethod">
-              <option selected disabled>Pilih Metode Pembayaran</option>
-              <option value="BRI">Bank BRI</option>
-              <option value="COD">COD</option>
-            </select>
+          <label for="paymentMethod" class="form-label">Metode Pembayaran:</label>
+          <select class="form-select" id="paymentMethod" name="payment_method">
+            <option selected disabled>Pilih Metode Pembayaran</option>
+            <option value="BRI">Bank BRI</option>
+            <option value="COD">COD</option>
+          </select>
           </div>
           <button type="submit" class="btn btn-dark w-100">Sewa Sekarang</button>
-        </form>
+      </form>
       </div>
-    </div>
-  </div>
+      <?php } ?>
+      </div>
 
+  </div>
   <!-- FOOTER -->
   <footer class="footer mt-5">
     <div class="container">

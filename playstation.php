@@ -1,6 +1,26 @@
 <?php
 // elektroinik.php
 include 'config.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $start_date = $_POST['rental_start_date'];
+  $end_date = $_POST['rental_end_date'];
+  $quantity = $_POST['jumlah'];
+  $user_id = 1; // Misalnya, ambil dari sesi login pengguna
+  $item_id = 11; // ID item yang sedang disewa, bisa diambil dari URL atau bentuk lain
+
+  $sql = "INSERT INTO tb_rentals (id_user, item_id, rental_start_date, rental_end_date, jumlah) VALUES (?, ?, ?, ?, ?)";
+  $stmt = $connect->prepare($sql);
+  $stmt->bind_param("iissi", $user_id, $item_id, $start_date, $end_date, $quantity);
+
+  if ($stmt->execute()) {
+      echo "Sewa berhasil!";
+  } else {
+      echo "Terjadi kesalahan: " . $connect->error;
+  }
+
+  $stmt->close();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,21 +112,22 @@ include 'config.php';
         </div>
       </div>
       <div class="col-md-6">
+      <form method="POST" action="sewa1.php">
         <h1>Playstation 5</h1>
         <p>Rp. 175.000 / Hari</p>
         <div class="d-flex flex-column mb-3">
           <label for="startDate" class="form-label">Tanggal Mulai:</label>
-          <input type="date" class="form-control" id="startDate">
+          <input type="date" class="form-control" id="startDate" name="rental_start_date">
         </div>
         <div class="d-flex flex-column mb-3">
           <label for="endDate" class="form-label">Tanggal Selesai:</label>
-          <input type="date" class="form-control" id="endDate">
+          <input type="date" class="form-control" id="endDate" name="rental_end_date">
         </div>
         <div class="d-flex align-items-center mb-3">
           <label for="quantity" class="form-label me-2">Jumlah Barang:</label>
-          <input type="number" class="form-control" id="quantity" value="1" min="1" style="width: 60px;">
+          <input type="number" class="form-control" id="quantity" value="1" min="1" style="width: 60px;" name="jumlah">
         </div>
-        <a href="sewa1.html" type="button" class="btn btn-primary">Sewa Sekarang</a>
+        <button type="submit" type="button" class="btn btn-primary">Sewa Sekarang</button>
       </div>
     </div>
 
@@ -120,7 +141,7 @@ include 'config.php';
           <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Penilaian & Ulasan</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="terms-tab" data-bs-toggle="tab" data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">Syarat & Ketentuan Perentalan</button>
+          <button class="nav-link" id="terms-tab" data-bs-toggle="tab" data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">Fitur Produk</button>
         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
@@ -143,13 +164,13 @@ include 'config.php';
             <div class="card mb-3">
               <div class="card-body">
               <?php
-$sql = "SELECT * FROM reviews r
-        JOIN tb_user u ON user_id = user_id
-        WHERE r.review_id = 3";
-$hasil = mysqli_query($connect, $sql);
+                $sql = "SELECT * FROM reviews r
+                        JOIN tb_user u ON user_id = user_id
+                        WHERE r.review_id = 3";
+                $hasil = mysqli_query($connect, $sql);
 
-if ($data = mysqli_fetch_assoc($hasil)) {
-?>
+                if ($data = mysqli_fetch_assoc($hasil)) {
+                ?>
                 <h5 class="card-title"><?php echo $data['nama']; ?></h5>
                 <p class="card-text"><?php echo $data['comment']; ?></p>
                 <p class="card-text"><small class="text-muted"><?php echo $data['created_at']; ?></small></p>
@@ -157,13 +178,13 @@ if ($data = mysqli_fetch_assoc($hasil)) {
               <?php } ?>
             </div>
             <?php
-$sql = "SELECT * FROM reviews r
-        JOIN tb_user u ON user_id = user_id
-        WHERE r.review_id = 4";
-$hasil = mysqli_query($connect, $sql);
+          $sql = "SELECT * FROM reviews r
+                  JOIN tb_user u ON user_id = user_id
+                  WHERE r.review_id = 4";
+          $hasil = mysqli_query($connect, $sql);
 
-if ($data = mysqli_fetch_assoc($hasil)) {
-?>
+          if ($data = mysqli_fetch_assoc($hasil)) {
+          ?>
             <div class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title"><?php echo $data['nama']; ?></h5>
@@ -176,10 +197,17 @@ if ($data = mysqli_fetch_assoc($hasil)) {
         </div>
         <div class="tab-pane fade" id="terms" role="tabpanel" aria-labelledby="terms-tab">
           <!-- Terms and conditions here -->
-          <p>Informasi tentang syarat dan ketentuan perentalan akan ditampilkan di sini.</p>
+          <BR>
+          <?php
+          $sql = "SELECT * FROM tb_items WHERE item_id=6";
+          $hasil = mysqli_query($connect, $sql);
+          if ($data = mysqli_fetch_assoc($hasil)) {
+          ?>
+          <p><?php echo $data['features']; ?></p>
         </div>
       </div>
     </div>
+    <?php }?>
   </div>
 </body>
 </html>
