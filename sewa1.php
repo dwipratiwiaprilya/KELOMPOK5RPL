@@ -107,36 +107,36 @@ $total_cost = $rental_rate * $total_days * $quantity;
         <p><?php echo $data['price']; ?></p>
         <p><span class="text-warning">★ ★ ★ ★ </span> <?php echo $data['rating']; ?></p>
         <form action="proses_sewa.php" method="post">
-          <div class="mb-3">
-            <label for="startDate" class="form-label">Tanggal Mulai:</label>
-            <input type="date" class="form-control" id="startDate" name="rental_start_date" value="<?php echo htmlspecialchars($start_date); ?>" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="endDate" class="form-label">Tanggal Selesai:</label>
-            <input type="date" class="form-control" id="endDate" name="rental_end_date" value="<?php echo htmlspecialchars($end_date); ?>" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="totalDuration" class="form-label">Total Durasi:</label>
-            <input type="text" class="form-control" id="totalDuration " id="totalDuration" value="<?php echo htmlspecialchars($total_days); ?> Hari" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="quantity" class="form-label">Jumlah Barang:</label>
-            <input type="number" class="form-control" id="quantity" name="jumlah" min="1" value="<?php echo htmlspecialchars($quantity); ?>" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="totalCost" class="form-label">Total Biaya Sewa:</label>
-            <input type="text" class="form-control" id="totalCost" value="Rp. <?php echo number_format($total_cost, 0, ',', '.'); ?>" readonly>
-          </div>
-          <div class="mb-3">
-          <label for="paymentMethod" class="form-label">Metode Pembayaran:</label>
-          <select class="form-select" id="paymentMethod" name="payment_method">
+    <div class="mb-3">
+        <label for="startDate" class="form-label">Tanggal Mulai:</label>
+        <input type="date" class="form-control" id="startDate" name="rental_start_date" value="<?php echo htmlspecialchars($start_date); ?>" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="endDate" class="form-label">Tanggal Selesai:</label>
+        <input type="date" class="form-control" id="endDate" name="rental_end_date" value="<?php echo htmlspecialchars($end_date); ?>" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="totalDuration" class="form-label">Total Durasi:</label>
+        <input type="text" class="form-control" id="totalDuration" value="<?php echo htmlspecialchars($total_days); ?> Hari" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="quantity" class="form-label">Jumlah Barang:</label>
+        <input type="number" class="form-control" id="quantity" name="jumlah" min="1" value="<?php echo htmlspecialchars($quantity); ?>" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="totalCost" class="form-label">Total Biaya Sewa:</label>
+        <input type="text" class="form-control" id="totalCost" value="Rp. <?php echo number_format($total_cost, 0, ',', '.'); ?>" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="paymentMethod" class="form-label">Metode Pembayaran:</label>
+        <select class="form-select" id="paymentMethod" name="payment_method">
             <option selected disabled>Pilih Metode Pembayaran</option>
             <option value="BRI">Bank BRI</option>
             <option value="COD">COD</option>
-          </select>
-          </div>
-          <button type="submit" class="btn btn-dark w-100">Sewa Sekarang</button>
-      </form>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-dark w-100">Sewa Sekarang</button>
+    </form>
       </div>
       <?php } ?>
       </div>
