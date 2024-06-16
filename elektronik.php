@@ -1,6 +1,7 @@
 <?php
-// elektronik.php
+// elektroinik.php
 include 'config.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -67,25 +68,25 @@ include 'config.php';
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="elektronik.php">Elektronik</a>
+            <a class="nav-link" href="#">Elektronik</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Otomotif</a>
           </li>
         </ul>
         <div class="mx-auto">
-          <form class="d-flex" role="search" method="GET" action="elektronik.php">
+          <form class="d-flex" role="search">
             <div class="input-group">
               <span class="input-group-text">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
               </span>
-              <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="cari">
-              <button class="btn btn-outline-success" name="btncari" type="submit">Search</button>
+              <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
             </div>
           </form>
         </div>
@@ -108,53 +109,204 @@ include 'config.php';
     </div>
   </nav>
   
-  <!-- Display Items -->
-  <?php
-  $cari = "";
-  if (isset($_GET['cari']) && !empty($_GET['cari'])) {
-    $cari = $_GET['cari'];
-    $sql = "SELECT * FROM tb_items WHERE name LIKE '%$cari%'";
-  } else {
-    $sql = "SELECT * FROM tb_items";
-  }
-
-  $hasil = mysqli_query($connect, $sql);
-  if (mysqli_num_rows($hasil) > 0) {
-    $items = array();
-    while ($data = mysqli_fetch_assoc($hasil)) {
-      $items[] = $data;
-    }
-  } else {
-    echo "<p class='text-center mt-5'>No items found</p>";
-  }
-  ?>
-
+  <!--KATEGORI KAMERA-->
+  <h2 style="text-align: center; margin-top: 20px; margin-bottom: 10px;">Kamera</h2>
   <div class="container mt-5">
     <div class="row">
-      <?php if (!empty($items)) { ?>
-        <?php foreach ($items as $data) { ?>
-          <div class="col-md-6 col-lg-4">
-            <div class="card">
-              <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
-              <div class="card-body">
-                <h5 class="card-title"><?php echo $data['name']; ?></h5>
-                <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <span><?php echo $data['rating']; ?>/5</span>
-                </div>
-                <a href="#" class="btn btn-primary">Sewa Sekarang</a>
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=1";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
+          <div class="card-body">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              <span><?php echo $data['rating']; ?>/5</span>
               </div>
-            </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
           </div>
-        <?php } ?>
-      <?php } ?>
-    </div>
+        </div>
+      </div>
+      <?php
+      }
+      ?>
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=2";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
+          <div class="card-body">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              <span><?php echo $data['rating']; ?>/5</span>
+              </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+      <?php
+      }
+      ?>
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=3";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
+          <div class="card-body">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              <span><?php echo $data['rating']; ?>/5</span>
+              </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+      <?php
+      }
+      ?>
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=4";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
+          <div class="card-body">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              <span><?php echo $data['rating']; ?>/5</span>
+              </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+      <?php
+      }
+      ?>
   </div>
 
+  <!--KATEGORI handphone-->
+  <h2 style="text-align: center; margin-top: 20px; margin-bottom: 10px;">Handphone</h2>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=5";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
+          <div class="card-body">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              <span><?php echo $data['rating']; ?>/5</span>
+              </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+      <?php
+      }
+      ?>
+
+  <!--KATEGORI GADGET-->
+  <h2 style="text-align: center; margin-top: 20px; margin-bottom: 10px;">Gadget</h2>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=6";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
+          <div class="card-body">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              <span><?php echo $data['rating']; ?>/5</span>
+              </div>
+            <a href="playstation.php" class="btn btn-primary">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+      <?php
+      }
+      ?>
+
+  <!--KATEGORI DRONE-->
+  <h2 style="text-align: center; margin-top: 20px; margin-bottom: 10px;">Drone</h2>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+        <?php
+      $sql ="SELECT * From tb_items where item_id=7";
+      $hasil = mysqli_query($connect, $sql);
+      while ($data = mysqli_fetch_assoc($hasil)) {
+      ?>
+          <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
+          <div class="card-body">
+          <h5 class="card-title"><?php echo $data['name']; ?></h5>
+          <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              <span><?php echo $data['rating']; ?>/5</span>
+              </div>
+            <a href="#" class="btn btn-primary">Sewa Sekarang</a>
+          </div>
+        </div>
+      </div>
+      <?php
+      }
+      ?>
+  
+  
+  
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
