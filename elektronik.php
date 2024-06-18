@@ -113,9 +113,9 @@ include 'config.php';
   $cari = "";
   if (isset($_GET['cari']) && !empty($_GET['cari'])) {
     $cari = $_GET['cari'];
-    $sql = "SELECT * FROM tb_items WHERE name LIKE '%$cari%'";
+    $sql = "SELECT * FROM tb_items WHERE name LIKE '%$cari%' AND subcategory_id IN (1, 2, 3, 4)";
   } else {
-    $sql = "SELECT * FROM tb_items";
+    $sql = "SELECT * FROM tb_items WHERE subcategory_id IN (1, 2, 3, 4)";
   }
 
   $hasil = mysqli_query($connect, $sql);
@@ -129,34 +129,68 @@ include 'config.php';
   }
   ?>
 
-  <div class="container mt-5">
-    <div class="row">
-      <?php if (!empty($items)) { ?>
-        <?php foreach ($items as $data) { ?>
-          <div class="col-md-6 col-lg-4">
-            <div class="card">
-              <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
-              <div class="card-body">
-                <h5 class="card-title"><?php echo $data['name']; ?></h5>
-                <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <span><?php echo $data['rating']; ?>/5</span>
-                </div>
-                <a href="#" class="btn btn-primary">Sewa Sekarang</a>
+<div class="container mt-5">
+  <div class="row">
+    <?php if (!empty($items)) { ?>
+      <?php foreach ($items as $data) { ?>
+        <div class="col-md-6 col-lg-4">
+          <div class="card">
+            <img src="assets/images/<?php echo $data['gambar']; ?>" class="card-img-top" alt="<?php echo $data['gambar']; ?>">
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $data['name']; ?></h5>
+              <p class="card-text rent-price">Rp <?php echo number_format($data['rental_price'], 2, ',', '.'); ?></p>
+              <div class="rating">
+                <?php 
+                  $rating = intval($data['rating']);
+                  for ($i = 1; $i <= 5; $i++) {
+                    if ($i <= $rating) {
+                      echo '<i class="fas fa-star"></i>';
+                    } else {
+                      echo '<i class="far fa-star"></i>';
+                    }
+                  }
+                ?>
+                <span><?php echo $data['rating']; ?>/5</span>
               </div>
+              <?php 
+                $link = '';
+                switch ($data['item_id']) {
+                  case 1:
+                    $link = '#' . $data['name'];
+                    break;
+                  case 2:
+                    $link = '#' . $data['name'];
+                    break;
+                  case 3:
+                    $link = '#' . $data['name'];
+                    break;
+                  case 4:
+                    $link = '#' . $data['name'];
+                    break;
+                  case 5:
+                    $link = '#' . $data['name'];
+                    break;
+                  case 6:
+                    $link = 'playstation.php?id=' . $data['name'];
+                    break;
+                  case 7:
+                    $link = '#' . $data['name'];
+                    break;
+                  default:
+                    $link = '#'; 
+                    break;
+                }
+              ?>
+              <a href="<?php echo $link; ?>" class="btn btn-primary">Sewa Sekarang</a>
             </div>
           </div>
-        <?php } ?>
+        </div>
       <?php } ?>
-    </div>
+    <?php } ?>
   </div>
+</div>
+
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-</body>
-</html>
+  <script src="https
